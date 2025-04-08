@@ -19,7 +19,7 @@ const toggleVisibility = () => (isOpen.value = !isOpen.value);
 </script>
 <template>
   <section
-    class="bg-[url(../assets/hero-image.png)] w-full bg-no-repeat h-[1440px]"
+    class="bg-[url(../assets/hero-image.png)] w-full bg-no-repeat h-full bg-cover"
   >
     <div class="flex justify-between items-center mx-auto container pt-[428px]">
       <!--  the text of the hero section -->
@@ -40,7 +40,7 @@ const toggleVisibility = () => (isOpen.value = !isOpen.value);
           <input
             type="text"
             placeholder="Search for an event"
-            class="text-[16px] outline-none border-none"
+            class="text-[16px] outline-none border-none font-[Gilroy-Regular]"
           />
         </div>
         <!-- the divider -->
@@ -51,7 +51,11 @@ const toggleVisibility = () => (isOpen.value = !isOpen.value);
             class="flex justify-between items-center"
             @click="toggleVisibility"
           >
-            <p class="text-[16px] text-[hsla(0,0%,31%,1)]">Category</p>
+            <p
+              class="text-[16px] text-[hsla(0,0%,31%,1)] font-[Gilroy-Regular]"
+            >
+              Category
+            </p>
             <MdArrowDropDown class="text-[16px]" />
           </div>
           <!-- the dropdown -->
