@@ -3,5 +3,36 @@
 
 body {
   font-family: "Gilroy-Bold", sans-serif;
-  background-color: red;
+  background-color: hsla(0, 0%, 100%, 1);
+}
+
+@layer components {
+  .btn-primary {
+    background-color: hsla(271, 47%, 46%, 1);
+    padding-inline: 24px;
+    padding-block: 12px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .btn-transparent {
+    color: hsla(271, 47%, 46%, 1);
+    font-weight: 400;
+    font-size: 16px;
+  }
+
+  .category {
+    font-family: "Gilroy-Regular", sans-serif;
+    color: hsla(0, 0%, 31%, 1);
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  input,
+  p,
+  select,
+  option {
+    font-family: "Gilroy-Regular", sans-serif;
+  }
 }
