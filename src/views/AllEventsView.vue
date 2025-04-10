@@ -1,28 +1,41 @@
 <script setup lang="ts">
 import type { Event } from "@/types";
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import TrendingEventCard from "@/components/TrendingEventCard.vue";
 import { RouterLink } from "vue-router";
 import { IoOutlineMenu, IoOutlineClose } from "@kalimahapps/vue-icons";
 
 const allEvents = ref<Event[]>([]); // the ref for storing events
 const openMenu = ref<boolean>(false);
+const totalPages = ref<number>(0);
+const currentPage = ref<number>(1);
 
 const toggleMenu = () => (openMenu.value = !openMenu.value);
 
 //fetch events from api
 const fetchEvents = async () => {
   await axios
-    .get("https://rendezvous-events.onrender.com/events")
+    .get("https://rendezvous-events.onrender.com/events/", {
+      params: { page: currentPage.value },
+    })
     .then((res) => {
       allEvents.value = res?.data?.data?.allEvents as Event[];
+      totalPages.value = res?.data?.data?.noOfPages;
     })
     .catch((err) => console.log(err));
 };
 
 // call before the components mount
 onMounted(() => fetchEvents());
+// watch when page changes
+watch(currentPage, fetchEvents);
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) currentPage.value++;
+};
+const prevPage = () => {
+  if (currentPage.value > 1) currentPage.value--;
+};
 </script>
 <template>
   <header>
@@ -89,6 +102,34 @@ onMounted(() => fetchEvents());
     <!-- the trending cards -->
     <div class="grid md:grid-cols-3 md:gap-4 gap-3 items-center mt-3 md:mt-6">
       <TrendingEventCard v-for="event in allEvents" :event="event" />
+    </div>
+
+    <!-- the pagination -->
+    <!-- Pagination Controls -->
+    <div class="mt-20 space-x-2 flex justify-center items-center">
+      <button
+        @click="prevPage"
+        :disabled="currentPage === 1"
+        :class="[
+          currentPage === 1
+            ? 'bg-gray-200 px-4 py-2 rounded text-black'
+            : 'bg-[hsla(271,47%,46%,1)] px-4 py-2 rounded text-white',
+        ]"
+      >
+        Prev
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button
+        @click="nextPage"
+        :disabled="currentPage === totalPages"
+        :class="[
+          currentPage === totalPages
+            ? 'bg-gray-200 px-4 py-2 rounded text-black'
+            : 'bg-[hsla(271,47%,46%,1)] px-4 py-2 rounded text-white',
+        ]"
+      >
+        Next
+      </button>
     </div>
   </section>
 </template>
