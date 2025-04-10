@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterLink } from "vue-router";
+</script>
 <template>
   <section class="container md:mx-auto px-6 md:px-0 md:py-[127px] py-[63px]">
     <div class="grid gap-3 md:gap-6 md:grid-cols-3">
@@ -7,11 +9,12 @@
         <p class="text-[16px] md:text-[32px] font-[Gilroy-Medium]">
           Discover a World of Events Tailored Just for You.
         </p>
-        <button
+        <RouterLink
+          to="/events"
           class="mt-3 md:mt-6 text-xs md:text-[16px] bg-[hsla(271,47%,46%,1)] text-white md:py-3 py-2 md:px-6 px-3 rounded-[10px]"
         >
           View all events
-        </button>
+        </RouterLink>
       </div>
       <!-- 2 -->
       <div
